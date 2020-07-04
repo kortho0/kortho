@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package message;
+
+message Tx {
+  uint64 Nonce = 1;
+  uint64 Amount = 2;
+  string From = 3;
+  string To = 4;
+  string Hash = 5;
+  string Signature = 6;
+  int64 Time = 7;
+  string script = 8;
+}
+
+message res_tx { repeated Tx Txs = 1; }
+
+message req_tx { string address = 1; }
+
+message req_tx_by_hash { string hash = 1; }
+
+message req_balance { string address = 1; }
+message res_balance { uint64 balnce = 1; }
+
+message req_block_by_number { uint64 height = 1; }
+message req_block_by_hash { string hash = 1; }
+
+message resp_block {
+  uint64 Height = 1;
+  string PrevBlockHash = 2;
+  repeated Tx Txs = 3;
+  string Root = 4;
+  uint64 Version = 5;
+  int64 Timestamp = 6;
+  string Hash = 7;
+  string Miner = 8;
+}
+
+message respose_txs { repeated Tx txs = 1; }
+
+message respose_nonce { uint64 nonce = 1; }
+
+message req_nonce { string address = 1; }
+
+message req_transaction {
+  string From = 1;
+  string To = 2;
+  uint64 Amount = 3;
+  uint64 Nonce = 4;
+  string Priv = 5;
+}
+message res_transaction { string Hash = 1; }
+
+message req_create_addr {}
+message resp_create_addr {
+  string address = 1;
+  string privkey = 2;
+}
+
+message req_max_block_number {}
+message resp_max_block_number { uint64 maxNumber = 1; }
+
+message req_addr_by_priv { string priv = 1; }
+message resp_addr_by_priv { string addr = 1; }
+
+
+service Greeter {
+  rpc GetBlockByNum(req_block_by_number) returns (resp_block) {}
+  rpc GetBlockByHash(req_block_by_hash) returns (resp_block) {}
+  rpc GetBalance(req_balance) returns (res_balance) {}
+  rpc GetTxsByAddr(req_tx) returns (respose_txs) {}
+  rpc GetTxByHash(req_tx_by_hash) returns (Tx) {}
+  rpc SendTransaction(req_transaction) returns (res_transaction) {}
+  rpc GetAddressNonceAt(req_nonce) returns (respose_nonce) {}
+  rpc CreateAddr(req_create_addr) returns (resp_create_addr) {}
+  rpc GetMaxBlockNumber(req_max_block_number) returns (resp_max_block_number) {}
+  rpc GetAddrByPriv(req_addr_by_priv) returns (resp_addr_by_priv) {}
+}

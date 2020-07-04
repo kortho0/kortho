@@ -1,0 +1,61 @@
+set owner string
+set account<string> int32
+
+func init(address string, pubKey string) bool{
+    owner = pubKey
+    account<address> = 10000
+    return true
+}
+
+func addAccount(address string, sign string) bool{
+    var msg string
+
+    msg = address ++ time
+    if sm2Verify(sign, msg, owner) != true{
+        return false
+    }
+    account<address> = 0
+    return true
+}
+
+func removeAccount(address string, sign string) bool{
+    var msg string
+
+    msg = address ++ time()
+    if sm2Verify(sign, msg, owner) != true{
+        return false
+    }
+    delete(account, address)
+    return true
+}
+
+func transfer(from string, to string, sign string, pubKey string, amount int32) bool{
+    var msg string
+
+    if sm3Hash(pubKey) != from{
+        return false
+    }
+    msg = from ++ to ++ time()
+    if sm2Verify(sign, msg, pubKey) != true{
+        return false
+    }
+    if account<from> - amount < 0{
+        return false
+    }
+    account<to> = account<to> + amount
+    account<from> = account<from> - amount
+    return true
+}
+
+func queryAccount(address string, sign string, pubKey string) int32{
+    var msg string
+
+    if sm3Hash(pubKey) != address{
+        return -1
+    }
+    msg = address + time()
+    if sm2Verify(sign, msg, pubKey) != true{
+        return -1
+    }
+    return account<address>
+}

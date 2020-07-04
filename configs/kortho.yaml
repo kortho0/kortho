@@ -1,0 +1,51 @@
+logConfig:
+  level: "DEBUG"
+  filename: "./logs/kortho.log"
+  maxSize: 100
+  maxAge: 10
+  maxBackups: 10
+  comperss: true
+apiConfig:
+  Port: "9506"
+  rpcConfig:
+    address: ":9501"
+    certFile: "./configs/server.crt"
+    keyFile: "./configs/server.key"
+  webConfig:
+    address: ":9502"
+
+addressConfig:
+  qtjaddress: ""
+  dsaddress: ""
+  cmaddress: ""
+  mineraddress: ""
+
+p2pconfig:
+  nodeName: "a"
+  bindAort: 9401
+  bindAddr: "127.0.0.1"
+  advertiseAddr: "127.0.0.1"
+  members: ["127.0.0.1"]
+
+consensusConfig:
+  nodenum: ""
+  peers: []
+  httpaddr: ""
+  nodeaddr: ""
+  countaddr: ""
+  rpcaddr: ""
+  join: true
+  snapshotcount: 1000
+  snapshotinterval: 100
+  ds: ""
+  cm: ""
+  qtj: ""
+  logdir: ""
+  snapdir: ""
+  logsdir: ""
+  stabledir: ""
+  logfile: ""
+  logsavedays: 1
+  loglevel: 3
+  logsavemode: 1
+  logfilesize: 100

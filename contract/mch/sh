@@ -1,0 +1,5 @@
+#!/bin/bash
+rm build
+rm -r 2oD8KYivb8oXzoyjcf8ZE2kCsahYgv2AA94n2qHcEyjG
+go build
+./build
